@@ -25,7 +25,7 @@ public class WishList {
 
     @OneToOne
     private Account account;
-    @ManyToMany(mappedBy = "wishListSet")
+    @ManyToMany
     private Set<Gift> giftSet;
 
 }

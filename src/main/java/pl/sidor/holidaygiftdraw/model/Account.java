@@ -39,4 +39,7 @@ public class Account {
 
     @OneToOne
     private WishList wishList;
+
+    @ManyToMany(mappedBy = "accountSet")
+    private Set<Event> eventSet;
 }

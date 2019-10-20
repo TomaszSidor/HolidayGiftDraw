@@ -25,6 +25,6 @@ public class Family {
     private LocalDateTime dateAdded;
 
     private String familyName;
-    @ManyToMany(mappedBy = "familySet")
+    @ManyToMany
     private Set<Account> accountSet;
 }
