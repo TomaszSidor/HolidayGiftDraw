@@ -30,5 +30,5 @@ public class Gift {
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<WishList> wishListSet;
+    private WishList wishList;
 }
