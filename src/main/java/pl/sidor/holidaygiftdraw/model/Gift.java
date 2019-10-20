@@ -1,9 +1,7 @@
 package pl.sidor.holidaygiftdraw.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -26,8 +24,11 @@ public class Gift {
     private String name;
     private String URL;
     private int price;
+    @Enumerated(value = EnumType.STRING)
     private GiftPriority giftPriority;
     
     @ManyToMany(mappedBy = "giftSet")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<WishList> wishListSet;
 }

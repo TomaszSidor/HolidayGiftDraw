@@ -1,9 +1,7 @@
 package pl.sidor.holidaygiftdraw.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -26,6 +24,8 @@ public class WishList {
     @OneToOne
     private Account account;
     @ManyToMany
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Gift> giftSet;
 
 }

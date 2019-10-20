@@ -1,12 +1,11 @@
 package pl.sidor.holidaygiftdraw.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -32,14 +31,18 @@ public class Account {
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dateAdded;
     @JsonFormat(pattern = "yyyy/MM/dd")
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @ManyToMany(mappedBy = "accountSet")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Family> familySet;
 
     @OneToOne
     private WishList wishList;
 
     @ManyToMany(mappedBy = "accountSet")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Event> eventSet;
 }

@@ -1,9 +1,7 @@
 package pl.sidor.holidaygiftdraw.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 
@@ -33,6 +31,10 @@ public class Event {
     private LocalDateTime eventDate;
 
     @ManyToMany
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Account> accountSet;
+
+    private Long giftMaxPrice;
 
 }
