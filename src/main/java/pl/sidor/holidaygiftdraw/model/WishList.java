@@ -23,7 +23,7 @@ public class WishList {
 
     @OneToOne
     private Account account;
-    @ManyToMany
+    @OneToMany(mappedBy = "wishListSet")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Gift> giftSet;

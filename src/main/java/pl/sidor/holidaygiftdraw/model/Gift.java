@@ -27,7 +27,7 @@ public class Gift {
     @Enumerated(value = EnumType.STRING)
     private GiftPriority giftPriority;
     
-    @ManyToMany(mappedBy = "giftSet")
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<WishList> wishListSet;
