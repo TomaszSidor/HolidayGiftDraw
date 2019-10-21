@@ -29,8 +29,8 @@ public class HolidayEvent {
     @Formula(value = "(date_add(dateAdded, interval period day))")
     private LocalDateTime drawDate;
 
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    private LocalDateTime eventDate;
+    //@JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    private String eventDate;
 
     @ManyToMany
     @EqualsAndHashCode.Exclude

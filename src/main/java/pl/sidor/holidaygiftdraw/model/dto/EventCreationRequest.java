@@ -22,7 +22,7 @@ public class EventCreationRequest {
     @NotEmpty
     @Size(min = 6, max = 100)
     private int period;
-    private LocalDateTime eventDate;
+    private String eventDate;
     private Long giftMaxPrice;
 
     private String passwordConfirm;
