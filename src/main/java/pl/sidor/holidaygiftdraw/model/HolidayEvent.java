@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -14,15 +15,16 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Event {
+public class HolidayEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     @CreationTimestamp
     @Column(updatable = false)
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dateAdded;
-    private int period = 10;
+    private int period; //chciałbym domyślną wartość ustawić, jak ????
 
     @Formula(value = "(date_add(dateAdded, interval period day))")
     private LocalDateTime drawDate;
