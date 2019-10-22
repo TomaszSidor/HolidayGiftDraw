@@ -8,6 +8,7 @@ import org.hibernate.annotations.Formula;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,8 +27,8 @@ public class HolidayEvent {
     private LocalDateTime dateAdded;
     private int period; //chciałbym domyślną wartość ustawić, jak ????
 
-    @Formula(value = "(date_add(dateAdded, interval period day))")
-    private LocalDateTime drawDate;
+//    @Formula(value = "(date_add(dateAdded, interval period day))")
+//    private LocalDateTime drawDate;
 
     //@JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private String eventDate;
@@ -35,7 +36,11 @@ public class HolidayEvent {
     @ManyToMany
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Account> accountSet;
+    @JoinTable(
+            name = "holidaysEvents_accounts",
+            joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
+    private Set<Account> accountSet = new HashSet<>();
 
     private Long giftMaxPrice;
 

@@ -6,11 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import pl.sidor.holidaygiftdraw.model.dto.EventCreationRequest;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(path ="/holidayevent/")
@@ -26,9 +30,17 @@ public class HolidayEventController {
         return "holidayEvent-form";}
 
     @PostMapping("/add")
-    public String createNewHolidayEvent(HolidayEvent holidayEvent, EventCreationRequest request){
-        holidayEventService.add(holidayEvent, request);
+    public String createNewHolidayEvent(HolidayEvent holidayEvent, EventCreationRequest request, Principal principal){
+        holidayEventService.add(holidayEvent, request, principal.getName());
         return "redirect:/holidayevent/list";
+    }
+
+    @GetMapping("/list")
+    public String getHolidayEventByUserName(Model model, Principal principal){
+
+        Set<HolidayEvent> holidayEventSet = holidayEventService.getEventSetByUserName(principal.getName());
+        model.addAttribute("holidayEvents", holidayEventSet);
+        return "holidayEvent-list";
     }
 
 
