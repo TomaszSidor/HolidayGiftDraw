@@ -6,14 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import pl.sidor.holidaygiftdraw.model.dto.EventCreationRequest;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
-import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 import java.util.Set;
 
 @Controller

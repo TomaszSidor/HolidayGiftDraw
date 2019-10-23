@@ -6,11 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.AccountRole;
-import pl.sidor.holidaygiftdraw.model.WishList;
 import pl.sidor.holidaygiftdraw.model.dto.UserRegistrationRequest;
 import pl.sidor.holidaygiftdraw.repository.AccountRepository;
 import pl.sidor.holidaygiftdraw.repository.AccountRoleRepository;
-import pl.sidor.holidaygiftdraw.repository.WishListRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -26,8 +24,7 @@ public class AccountService  {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private WishListRepository wishListRepository;
+
 
     @Value("${default.user.roles:USER}")
     private String[] defaultUserRegisterRoles;
@@ -54,16 +51,15 @@ public class AccountService  {
         }
 
         Account account = new Account();
-        WishList wishList = new WishList();
+
         account.setUsername(request.getUsername());
         account.setPassword(passwordEncoder.encode(request.getPassword()));
-        wishList.setAccount(account);
+
 
         account.setRoles(findRolesByName(defaultUserRegisterRoles));
 
         accountRepository.save(account);
-        wishList.setAccount(account);
-        wishListRepository.save(wishList);
+
 
         return true;
     }
@@ -78,6 +74,10 @@ public class AccountService  {
 
     public Optional<Account> getById(Long id) {
         return accountRepository.findById(id);
+    }
+
+    public Optional<Account> getByUsername(String username) {
+        return accountRepository.findByUsername(username);
     }
 
     public void updateRoles(Long accountId, HttpServletRequest request) {

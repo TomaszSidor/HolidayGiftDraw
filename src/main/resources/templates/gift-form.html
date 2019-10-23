@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Add New Gift</title>
+</head>
+<body>
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<form th:action="@{/gift/add}" method="post">
+    <div class="content-container">
+        <div class="container">
+            <div class="row col-12">
+                <div class="row col-12">
+                    <h1>Add new Gift:</h1>
+                </div>
+                <div class="row col-12">
+                    <div class="col-6">
+                        <label for="name">What is this:</label>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" id="name" type="text" name="name">
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <div class="col-6">
+                        <label for="URL">link:</label>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" id="URL" type="text" name="URL">
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <div class="col-6">
+                        <label for="price">Price:</label>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" id="price" type="text" name="price">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row col-12">
+                <div class="col-6">
+                </div>
+                <div class="col-6">
+                    <input class="form-control" type="submit">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+</body>
+</html>

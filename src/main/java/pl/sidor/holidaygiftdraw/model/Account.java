@@ -40,8 +40,8 @@ public class Account {
     @ToString.Exclude
     private Set<Family> familySet;
 
-    @OneToOne
-    private WishList wishList;
+    @OneToMany(mappedBy = "account")
+    private Set<Gift> giftSet;
 
     @ManyToMany(mappedBy = "accountSet")
     @EqualsAndHashCode.Exclude

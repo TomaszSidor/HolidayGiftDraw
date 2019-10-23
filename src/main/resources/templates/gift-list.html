@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Gift list</title>
+</head>
+<body>
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="content-container">
+    <h1>Holidays list</h1>
+    <div class="row col-md-12">
+        <div class="row col-md-12 list-header-row">
+            <div class="col-2">Name</div>
+            <div class="col-2">Created</div>
+            <div class="col-2">URL link</div>
+            <div class="col-2">Price</div>
+
+
+        </div>
+        <div th:each="gift : ${gifts}" class="row col-md-12 list-data-row">
+            <div class="col-2" th:text="${gift.getName()}"></div>
+            <div class="col-2" th:text="${gift.getDateAdded()}"></div>
+            <div class="col-2" th:text="${gift.getURL()}"></div>
+            <div class="col-2" th:text="${gift.getPrice()}"></div>
+
+        </div>
+    </div>
+</div>
+</div>
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+</body>
+</html>
