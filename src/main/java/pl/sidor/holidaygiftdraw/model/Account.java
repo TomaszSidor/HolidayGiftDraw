@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -46,7 +45,7 @@ public class Account {
     @ManyToMany(mappedBy = "accountSet")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<HolidayEvent> holidayEventSet =new HashSet<>();
+    private Set<HolidayEvent> holidayEventSet;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @Cascade(value = {org.hibernate.annotations.CascadeType.DETACH})
