@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/account}">Hello </a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/userProfile.html}">Profile </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/holidayevent/add}">Create Event</a>

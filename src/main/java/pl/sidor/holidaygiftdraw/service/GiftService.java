@@ -28,4 +28,9 @@ public class GiftService {
         List<Gift> giftList = giftRepository.findByAccount(account);
         return giftList;
     }
+
+
+    public void editGift(Gift gift) {
+
+    }
 }

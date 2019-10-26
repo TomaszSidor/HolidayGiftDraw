@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,24 +23,24 @@ public class HolidayEvent {
     private String name;
     @CreationTimestamp
     @Column(updatable = false)
+    @DateTimeFormat
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dateAdded;
     private int period; //chciałbym domyślną wartość ustawić, jak ????
 
-//    @Formula(value = "(date_add(dateAdded, interval period day))")
-//    private LocalDateTime drawDate;
+    private boolean isDrawn = false;
 
-    //@JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    private String eventDate;
+    @Formula(value = "(date_add(dateAdded, interval period day))")
+    private LocalDate drawDate;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat
+    private LocalDate eventDate;
 
     @ManyToMany
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JoinTable(
-            name = "holidaysEvents_accounts",
-            joinColumns = @JoinColumn(name = "username"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
-    private Set<Account> accountSet = new HashSet<>();
+    private Set<Account> accountSet;
 
     private Long giftMaxPrice;
 

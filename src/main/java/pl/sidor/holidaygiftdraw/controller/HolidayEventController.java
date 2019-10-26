@@ -6,12 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import pl.sidor.holidaygiftdraw.model.dto.EventCreationRequest;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
 import java.security.Principal;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping(path ="/holidayevent/")
@@ -40,5 +41,10 @@ public class HolidayEventController {
         return "holidayEvent-list";
     }
 
+    @GetMapping("/guest/invite")
+    public String inviteGuestForEvent (Account account){
+        holidayEventService.sendInvitacionToAccount(account);
+        return "redirect:"
+    }
 
 }

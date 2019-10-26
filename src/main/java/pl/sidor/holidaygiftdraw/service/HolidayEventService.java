@@ -1,6 +1,7 @@
 package pl.sidor.holidaygiftdraw.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
@@ -8,6 +9,7 @@ import pl.sidor.holidaygiftdraw.model.dto.EventCreationRequest;
 import pl.sidor.holidaygiftdraw.repository.AccountRepository;
 import pl.sidor.holidaygiftdraw.repository.HolidayEventRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service

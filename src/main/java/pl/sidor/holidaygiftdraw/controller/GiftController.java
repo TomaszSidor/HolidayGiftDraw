@@ -43,4 +43,12 @@ public class GiftController {
         giftService.addGift(gift, principal.getName());
         return "redirect:/gift";
     }
+
+    @GetMapping("/edit")
+    public String showEditGiftForm () {return "editGift-form";}
+    @PostMapping("/edit")
+    public String editGift (Gift gift) {
+        giftService.editGift(gift);
+        return "redirect:/gift";
+    }
 }
