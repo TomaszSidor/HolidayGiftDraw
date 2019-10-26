@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.GiftDraw;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
-import pl.sidor.holidaygiftdraw.re.GiftDrawRepository;
+import pl.sidor.holidaygiftdraw.repository.GiftDrawRepository;
 import pl.sidor.holidaygiftdraw.repository.HolidayEventRepository;
 
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 @Service
 public class GiftDrawService {
@@ -48,10 +47,12 @@ public class GiftDrawService {
     }
 
     @Scheduled(fixedRate = 60000)
-    public void checkForValidEvents (){
-        List<HolidayEvent> holidayEventList= holidayEventRepository.findAllByIsDrawn(false);
-        for (HolidayEvent holidayEvent:holidayEventList) {
-        newGiftDraw(holidayEvent);
+    public void checkForValidEvents() {
+        List<HolidayEvent> holidayEventList = holidayEventRepository.findAllByIsDrawn(false);
+        for (HolidayEvent holidayEvent : holidayEventList) {
+            if (holidayEvent.getDrawDate().isBefore(LocalDate.now())) {
+                newGiftDraw(holidayEvent);
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,25 +25,28 @@ public class HolidayEvent {
     private String name;
     @CreationTimestamp
     @Column(updatable = false)
-    @DateTimeFormat
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateAdded;
+    @Column(name = "_period")
     private int period; //chciałbym domyślną wartość ustawić, jak ????
 
     private boolean isDrawn = false;
 
-    @Formula(value = "(date_add(dateAdded, interval period day))")
-    private LocalDate drawDate;
+    public LocalDate getDrawDate() {
+        return dateAdded.toLocalDate().plusDays(period);
+    }
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate eventDate;
 
     @ManyToMany
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Account> accountSet;
+    private Set<Account> accountSet = new HashSet<>();
 
     private Long giftMaxPrice;
+    @OneToMany(mappedBy = "holidayEvent")
+    private List<GiftDraw> giftDraws;
+
 
 }

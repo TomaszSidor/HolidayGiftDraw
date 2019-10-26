@@ -6,9 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
-import pl.sidor.holidaygiftdraw.model.dto.EventCreationRequest;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
 import java.security.Principal;
@@ -28,8 +26,8 @@ public class HolidayEventController {
         return "holidayEvent-form";}
 
     @PostMapping("/add")
-    public String createNewHolidayEvent(HolidayEvent holidayEvent, EventCreationRequest request, Principal principal){
-        holidayEventService.add(holidayEvent, request, principal.getName());
+    public String createNewHolidayEvent(HolidayEvent holidayEvent, Principal principal){
+        holidayEventService.add(holidayEvent, principal.getName());
         return "redirect:/holidayevent/list";
     }
 
@@ -41,10 +39,10 @@ public class HolidayEventController {
         return "holidayEvent-list";
     }
 
-    @GetMapping("/guest/invite")
-    public String inviteGuestForEvent (Account account){
-        holidayEventService.sendInvitacionToAccount(account);
-        return "redirect:"
-    }
+//    @GetMapping("/guest/invite")
+//    public String inviteGuestForEvent (Account account){
+//        holidayEventService.sendInvitacionToAccount(account);
+//        return "redirect:";
+//    }
 
 }

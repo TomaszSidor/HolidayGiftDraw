@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -50,6 +51,12 @@ public class Account {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @Cascade(value = {org.hibernate.annotations.CascadeType.DETACH})
     private Set<AccountRole> roles;
+
+    @OneToMany(mappedBy = "giver")
+    private List<GiftDraw> drawsAsGiver;
+    @OneToMany(mappedBy = "receiver")
+    private List<GiftDraw> drawsAsReceiver;
+
 
     public boolean isAdmin() {
         return roles.stream()
