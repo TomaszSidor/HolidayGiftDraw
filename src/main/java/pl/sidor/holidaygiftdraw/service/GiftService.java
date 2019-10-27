@@ -20,7 +20,6 @@ public class GiftService {
         Account account = accountRepository.findByUsername(username).get();
         gift.setAccount(account);
         giftRepository.save(gift);
-    //    account.getGiftSet().add(gift);
     }
 
     public List<Gift> getAllByUserName(String username) {
@@ -28,7 +27,6 @@ public class GiftService {
         List<Gift> giftList = giftRepository.findByAccount(account);
         return giftList;
     }
-
 
     public void editGift(Gift gift) {
 

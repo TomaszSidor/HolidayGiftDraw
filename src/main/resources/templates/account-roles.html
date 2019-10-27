@@ -17,16 +17,16 @@
                 </div>
                 <input type="hidden" name="accountId" th:value="${user.getId()}">
                 <div class="row col-12" th:each="role : ${roles}">
-                    <div class="col-3" th:text="${role.getName()}"></div>
+                    <div class="col-md-3" th:text="${role.getName()}"></div>
                     <div class="offset-6 col-3">
                         <input type="checkbox" th:name="${role.getName()}" class="form-control"
                                th:checked="${user.getRoles().contains(role)}">
                     </div>
                 </div>
                 <div class="row col-12">
-                    <div class="col-6">
+                    <div class="col-md-6">
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <input class="form-control" type="submit">
                     </div>
                 </div>

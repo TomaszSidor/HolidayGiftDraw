@@ -24,8 +24,6 @@ public class AccountService  {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
     @Value("${default.user.roles:USER}")
     private String[] defaultUserRegisterRoles;
 
@@ -44,22 +42,15 @@ public class AccountService  {
         }
     }
 
-
     public boolean register(UserRegistrationRequest request) {
         if (accountRepository.existsByUsername(request.getUsername())) {
             return false;
         }
-
         Account account = new Account();
-
         account.setUsername(request.getUsername());
         account.setPassword(passwordEncoder.encode(request.getPassword()));
-
-
         account.setRoles(findRolesByName(defaultUserRegisterRoles));
-
         accountRepository.save(account);
-
         return true;
     }
 

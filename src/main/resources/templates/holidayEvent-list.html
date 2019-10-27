@@ -9,32 +9,37 @@
 <th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
 
 <div class="content-container">
-    <h1>Yours events:</h1>
-    <div class="row col-md-12">
-        <div class="row col-md-12 list-header-row">
-            <div class="col-2">Name</div>
-            <div class="col-2">Created</div>
-            <div class="col-2">Start</div>
-            <div class="col-2">DrawTime</div>
-            <div class="col-2">MaxPrice</div>
-            <div class="col-2">GuestsList</div>
-            <!--            <div class="col-3">&lt;!&ndash;Buttons&ndash;&gt;</div>-->
-        </div>
-        <div th:each="holidayEvent : ${holidayEvents}" class="row col-md-12 list-data-row">
-            <div class="col-2" th:text="${holidayEvent.getName()}"></div>
-            <div class="col-2" th:text="${holidayEvent.getDateAdded()}"></div>
-            <div class="col-2" th:text="${holidayEvent.getEventDate()}"></div>
-            <div class="col-2" th:text="${holidayEvent.getDrawDate()}"></div>
-            <div class="col-2" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
-            <div class="col-2" th:each="account : ${holidayEvent.getAccountSet()}">
-                <div class="col-2" th:text="${account.getUsername()}"></div>
+    <div class="container">
+        <div class="row col-12">
+            <div class="row col-12">
+                <h1>Yours events:</h1>
             </div>
-
+            <div class="row col-md-12">
+                <div class="row col-md-12 list-header-row">
+                    <div class="col-md-2">Name</div>
+                    <div class="col-md-2">Created</div>
+                    <div class="col-md-2">Start</div>
+                    <div class="col-md-2">DrawTime</div>
+                    <div class="col-md-2">MaxPrice</div>
+                    <div class="col-md-2">Create By</div>
+                </div>
+                <div th:each="holidayEvent : ${holidayEvents}" class="row col-md-12 list-data-row">
+                    <a th:href="@{'/holidayevent/singleView/'+${holidayEvent.getId()}}">
+                        <div class="row col-12">
+                            <div class="col-md-2" th:text="${holidayEvent.getName()}"></div>
+                            <div class="col-md-2" th:text="${holidayEvent.getDateAdded()}"></div>
+                            <div class="col-md-2" th:text="${holidayEvent.getEventDate()}"></div>
+                            <div class="col-md-2" th:text="${holidayEvent.getDrawDate()}"></div>
+                            <div class="col-md-2" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
+                            <div class="col-md-2" th:text="${holidayEvent.getAccount().getUsername()}"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</div>
-<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
-<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+    <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+    <th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
 </body>
 </html>

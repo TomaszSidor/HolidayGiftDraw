@@ -20,7 +20,6 @@ public class GiftDrawController {
 
     @PostMapping("/post")
     public void newGiftDraws (HolidayEvent holidayEvent){
-
         giftDrawService.newGiftDraw(holidayEvent);
     }
 

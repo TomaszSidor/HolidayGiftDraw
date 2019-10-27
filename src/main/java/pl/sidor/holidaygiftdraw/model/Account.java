@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,9 +31,9 @@ public class Account {
 
     @CreationTimestamp
     @Column(updatable = false)
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dateAdded;
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate birthday;
 
     @ManyToMany(mappedBy = "accountSet")
@@ -40,7 +41,8 @@ public class Account {
     @ToString.Exclude
     private Set<Family> familySet;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account")  @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Gift> giftSet;
 
     @ManyToMany(mappedBy = "accountSet")
@@ -53,10 +55,17 @@ public class Account {
     private Set<AccountRole> roles;
 
     @OneToMany(mappedBy = "giver")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<GiftDraw> drawsAsGiver;
     @OneToMany(mappedBy = "receiver")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<GiftDraw> drawsAsReceiver;
-
+    @OneToMany(mappedBy = "account")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<HolidayEvent> holidayEventList;
 
     public boolean isAdmin() {
         return roles.stream()

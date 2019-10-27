@@ -22,7 +22,6 @@ public class GiftController {
 
     @GetMapping("")
     public String getGiftsList(Principal principal, Model model) throws RuntimeException{
-
         this.principal = principal;
         this.model = model;
         try {

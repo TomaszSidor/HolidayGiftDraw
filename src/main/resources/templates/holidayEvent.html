@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="fragments :: styleLinks" th:remove="tag"></th:block>
+    <meta charset="UTF-8">
+    <title>Your Events</title>
+</head>
+<body>
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="content-container">
+    <div class="container">
+        <div class="row col-12">
+            <div class="row col-12">
+                <h1>Event View</h1>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">Name</div>
+                <div class="col-md-6" th:text="${holidayEvent.getName()}"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">Created</div>
+                <div class="col-md-6" th:text="${holidayEvent.getDateAdded()}"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">Start</div>
+                <div class="col-md-6" th:text="${holidayEvent.getEventDate()}"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">DrawTime</div>
+                <div class="col-md-6" th:text="${holidayEvent.getDrawDate()}"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">MaxPrice</div>
+                <div class="col-md-6" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">GuestsList</div>
+                <div class="col-md-6">
+                    <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
+                        <div class="col-md-6" th:text="${account.getUsername()}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-6">Invite guests:</div>
+                <div class="col-md-6">
+                    <form th:action="@{/holidayevent/invitations}">
+                        <input th:type="hidden" th:value="${holidayEvent.getId()}" name="eventId">
+                        <select th:name="invited_account">
+                            <option th:each="account : ${allAccounts}"
+                                    th:text="${account.getUsername()}"
+                                    th:if="${!holidayEvent.getAccountSet().contains(account)}"
+                                    th:value="${account.getId()}">
+                            </option>
+                        </select>
+                        <input class="form-control" th:type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+</body>
+</html>

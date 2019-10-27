@@ -22,6 +22,7 @@ public class HolidayEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String identifier;
     private String name;
     @CreationTimestamp
     @Column(updatable = false)
@@ -39,14 +40,17 @@ public class HolidayEvent {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate eventDate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Account> accountSet = new HashSet<>();
 
     private Long giftMaxPrice;
     @OneToMany(mappedBy = "holidayEvent")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<GiftDraw> giftDraws;
 
-
+    @ManyToOne
+    private Account account;
 }
