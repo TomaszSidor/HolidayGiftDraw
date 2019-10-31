@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.sidor.holidaygiftdraw.model.dto.UserRegistrationRequest;
 import pl.sidor.holidaygiftdraw.service.AccountService;
 
@@ -54,6 +55,21 @@ public class IndexController {
             model.addAttribute("errorMessage", "This username is already taken.");
             return "registration-form";
         }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/register/{UUID}")
+    public String registrationFormWithUUID() {
+        return "registration-form";
+    }
+
+    @PostMapping("/register/{UUID}")
+    public String registerWithUUID(@RequestParam String UUID, Model model, @Valid UserRegistrationRequest request,
+                                   BindingResult bindingResult){
+
+        register(model, request, bindingResult);
+
+
         return "redirect:/login";
     }
 }

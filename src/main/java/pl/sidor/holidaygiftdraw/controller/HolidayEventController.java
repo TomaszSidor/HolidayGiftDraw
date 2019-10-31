@@ -12,6 +12,7 @@ import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import pl.sidor.holidaygiftdraw.service.AccountService;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
+import javax.mail.MessagingException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Period;
@@ -69,4 +70,12 @@ public class HolidayEventController {
         holidayEventService.sendInvitation(invited_account, eventId);
         return  "redirect:/holidayevent/singleView/" + eventId;
     }
+
+    @GetMapping("emailInvitation")
+    public String inviteGuestByEmail (String email, String eventUUID) throws MessagingException {
+
+        holidayEventService.sendEmailInvitation(email, eventUUID);
+        return  "redirect:/holidayevent/singleView/" + eventUUID;
+    }
+
 }

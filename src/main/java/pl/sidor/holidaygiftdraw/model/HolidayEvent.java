@@ -22,7 +22,7 @@ public class HolidayEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String identifier;
+    private String identifier; //UUID
     private String name;
     @CreationTimestamp
     @Column(updatable = false)

@@ -23,6 +23,8 @@ public class AccountService  {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private HolidayEventService holidayEventService;
 
     @Value("${default.user.roles:USER}")
     private String[] defaultUserRegisterRoles;
@@ -52,6 +54,20 @@ public class AccountService  {
         account.setRoles(findRolesByName(defaultUserRegisterRoles));
         accountRepository.save(account);
         return true;
+    }
+
+    public boolean registerWithUUID(UserRegistrationRequest request, String UUID){
+        if (accountRepository.existsByUsername(request.getUsername())) {
+            return false;
+        }
+        Account account = new Account();
+        account.setUsername(request.getUsername());
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
+        account.setRoles(findRolesByName(defaultUserRegisterRoles));
+        account.getHolidayEventSet().add(holidayEventService.findByIdentifier(UUID).get());
+        accountRepository.save(account);
+        return true;
+
     }
 
     public Set<AccountRole> findRolesByName(String... roles) {
