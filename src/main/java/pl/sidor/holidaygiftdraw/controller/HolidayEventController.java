@@ -71,11 +71,18 @@ public class HolidayEventController {
         return  "redirect:/holidayevent/singleView/" + eventId;
     }
 
-    @GetMapping("emailInvitation")
-    public String inviteGuestByEmail (String email, String eventUUID) throws MessagingException {
+    @GetMapping("/emailInvitation")
+    public String getInviteGuestByEmail (String eventUUID, String email) throws MessagingException {
+        holidayEventService.sendEmailInvitation(email, eventUUID);
+        Long id = holidayEventService.findByIdentifier(eventUUID).get().getId();
+        return  "redirect:/holidayevent/singleView/" + id;
+}
+    @PostMapping("/emailInvitation")
+    public String inviteGuestByEmail (String eventUUID, String email) throws MessagingException {
 
         holidayEventService.sendEmailInvitation(email, eventUUID);
-        return  "redirect:/holidayevent/singleView/" + eventUUID;
+        Long id = holidayEventService.findByIdentifier(eventUUID).get().getId();
+        return  "redirect:/holidayevent/singleView/" + id;
     }
 
 }

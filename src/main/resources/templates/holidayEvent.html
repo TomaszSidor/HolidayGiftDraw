@@ -61,7 +61,7 @@
             <div class="row col-md-12">
                 <div class="col-md-6">Invite guests via email:</div>
                 <div class="col-md-6">
-                    <form th:action="@{/holidayevent/emailInvitations}">
+                    <form th:action="@{/holidayevent/emailInvitation}">
                         <input th:type="hidden" th:value="${holidayEvent.getIdentifier()}" name="eventUUID">
 
                             <input class="form-control" id="email" type="text" name="email">
