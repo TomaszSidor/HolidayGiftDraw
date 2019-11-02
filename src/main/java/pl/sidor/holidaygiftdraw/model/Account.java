@@ -62,7 +62,7 @@ public class Account {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<GiftDraw> drawsAsReceiver;
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "creator")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<HolidayEvent> holidayEventList;

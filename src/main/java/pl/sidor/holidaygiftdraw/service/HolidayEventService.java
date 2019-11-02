@@ -24,7 +24,7 @@ public class HolidayEventService {
         Account account = accountRepository.findByUsername(username).get();
         holidayEvent.setIdentifier(UUID.randomUUID().toString());
         holidayEvent.getAccountSet().add(account);
-        holidayEvent.setAccount(account);
+        holidayEvent.setCreator(account);
         holidayEventRepository.save(holidayEvent);
     }
 

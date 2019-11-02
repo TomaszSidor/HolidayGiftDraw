@@ -38,7 +38,9 @@
                 <div class="col-md-6">GuestsList</div>
                 <div class="col-md-6">
                     <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
+                        <a th:href="@{'/gift/price/'+${holidayEvent.getId()} + '/' + ${account.getId()}}" > <!--// jak podać dwie zmienne?-->
                         <div class="col-md-6" th:text="${account.getUsername()}"></div>
+                        </a>
                     </div>
                 </div>
             </div>
