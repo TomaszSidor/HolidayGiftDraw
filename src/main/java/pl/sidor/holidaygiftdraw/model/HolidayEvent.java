@@ -52,5 +52,5 @@ public class HolidayEvent {
     private List<GiftDraw> giftDraws;
 
     @ManyToOne
-    private Account account;
+    private Account creator;
 }
