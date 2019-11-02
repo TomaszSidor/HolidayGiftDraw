@@ -23,6 +23,12 @@ public class GiftDrawService {
     @Autowired
     private HolidayEventRepository holidayEventRepository;
 
+    public List<GiftDraw> getAll (){ return giftDrawRepository.findAll();}
+
+    public List<GiftDraw> getAllByEvent (HolidayEvent holidayEvent) {
+        return giftDrawRepository.allDrawsByHolidayEvent(holidayEvent);
+    }
+
     public void newGiftDraw(HolidayEvent holidayEvent) {
         List<Account> givers = Lists.newArrayList(holidayEvent.getAccountSet());
         List<Account> receivers = Lists.newArrayList(holidayEvent.getAccountSet());
