@@ -49,8 +49,8 @@ public class HolidayEventService {
 
     public void sendEmailInvitation(String email, String eventUUID) throws MessagingException {
         HolidayEvent holidayEvent = holidayEventRepository.findByIdentifier(eventUUID).get();
-        String URL = "http://localhost:8080//register/" + eventUUID;
-        mailingService.sendEmail(email, "Hello this is a invitation link: " + URL + " to aplikation " +
+        String URL = "http://localhost:8080/register/" + eventUUID;
+        mailingService.sendEmail(email, "Hello this is a invitation link: " + URL + " to application " +
                 "HolidayGiftDraw. Click to register ", "Invitation to HolidayGiftDraw");
 
     }
