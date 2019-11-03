@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sidor.holidaygiftdraw.model.Account;
+import pl.sidor.holidaygiftdraw.model.GiftDraw;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import pl.sidor.holidaygiftdraw.service.AccountService;
+import pl.sidor.holidaygiftdraw.service.GiftDrawService;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
 import javax.mail.MessagingException;
@@ -25,6 +27,8 @@ public class HolidayEventController {
     private HolidayEventService holidayEventService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private GiftDrawService giftDrawService;
 
     @GetMapping("")
     public String getHolidayEventPage() {
@@ -50,11 +54,15 @@ public class HolidayEventController {
     }
 
     @GetMapping("/singleView/{id}")
-    public String getHolidayEventView(@PathVariable("id") Long id, Model model) {
+    public String getHolidayEventView(@PathVariable("id") Long id, Model model, Principal principal) {
         Optional<HolidayEvent> holidayEventOptional = holidayEventService.findById(id);
         List<Account> allAccounts = accountService.getAll();
+        Account viewer = accountService.getByUsername(principal.getName()).get();
+//        List<GiftDraw> allDraws = giftDrawService.getAllByEvent(holidayEventOptional.get());
         model.addAttribute("allAccounts", allAccounts);
+        model.addAttribute("viewer", viewer);
         if(holidayEventOptional.isPresent()) {
+            model.addAttribute("allDraws", holidayEventOptional.get().getGiftDraws());
             Period period = Period.between(holidayEventOptional.get().getDrawDate(), LocalDate.now());
             model.addAttribute("time_to_draw_days", period.getDays());
             model.addAttribute("time_to_draw_months", period.getMonths());
