@@ -42,12 +42,12 @@ public class GiftController {
         return "gift-list";
     }
 
-    @GetMapping("/price/{eventId} + '/' + {accountId}")
+    @GetMapping("/price/{eventId}/{accountId}")
     public String getGiftListByPrice(@PathVariable("eventId") Long eventId, @PathVariable("accountId") Long accountId, Model model){
         Optional<HolidayEvent> holidayEventOptional = holidayEventService.findById(eventId);
 
-        List<Gift> giftListByPrice = giftService.getAllUnderMaxPrice(accountService.getById(accountId).get().getUsername(), holidayEventOptional.get().getGiftMaxPrice());
-        model.addAttribute("giftsByPrice", giftListByPrice);
+        List<Gift> giftListByPrice = giftService.getAllUnderMaxPrice(accountService.getById(accountId).get(), holidayEventOptional.get().getGiftMaxPrice());
+        model.addAttribute("gifts", giftListByPrice);
         return "gift-list";
     }
 

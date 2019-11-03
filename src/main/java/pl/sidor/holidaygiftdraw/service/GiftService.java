@@ -30,17 +30,10 @@ public class GiftService {
     }
 
     public void editGift(Gift gift) {
-
+        //to do
     }
 
-    public List<Gift> getAllUnderMaxPrice(String name, Long giftMaxPrice) {
-        List<Gift> giftList = getAllByUserName(name);
-        List<Gift> giftListUnderMaxPrice = new ArrayList<>();
-        for (Gift gift : giftList){
-            if(gift.getPrice() <= giftMaxPrice){
-                giftListUnderMaxPrice.add(gift);
-            }
-        }
-        return giftListUnderMaxPrice;
+    public List<Gift> getAllUnderMaxPrice(Account account, int giftMaxPrice) {
+        return giftRepository.findAllByAccountAndPriceLessThanEqual(account, giftMaxPrice);
     }
 }
