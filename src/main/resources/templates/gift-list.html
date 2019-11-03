@@ -19,7 +19,9 @@
                     <div class="col-md-3">Name</div>
                     <div class="col-md-3">Created</div>
                     <div class="col-md-3">URL link</div>
-                    <div class="col-md-3">Price</div>
+                    <div class="col-md-1">Price</div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
 
 
                 </div>
@@ -27,13 +29,25 @@
                     <div class="col-md-3" th:text="${gift.getName()}"></div>
                     <div class="col-md-3" th:text="${gift.getDateAdded()}"></div>
                     <div class="col-md-3" th:text="${gift.getURL()}"></div>
-                    <div class="col-md-3" th:text="${gift.getPrice()}"></div>
+                    <div class="col-md-1" th:text="${gift.getPrice()}"></div>
+                    <div class="col-md-1">
+                        <a th:href="@{/gift/edit}">
+                            <button type="button" class="btn btn-warning">Edit
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+                        <a th:href="@{/gift/delete}">
+                            <button type="button" class="btn btn-danger">Delete
+                            </button>
+                        </a>
+                    </div>
 
                 </div>
             </div>
             <div class="row col-md-12">
                 <div class="row col-md-12 list-header-row">
-                    <div class="col-md-3">
+                    <div class="col-md-12" align="center">
                         <a th:href="@{/gift/add}">
                             <button type="button" class="btn btn-primary">Add gift
                             </button>
