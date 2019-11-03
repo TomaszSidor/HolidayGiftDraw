@@ -45,7 +45,7 @@ public class HolidayEvent {
     @ToString.Exclude
     private Set<Account> accountSet = new HashSet<>();
 
-    private Long giftMaxPrice;
+    private int giftMaxPrice;
     @OneToMany(mappedBy = "holidayEvent")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

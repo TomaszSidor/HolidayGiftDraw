@@ -7,6 +7,7 @@ import pl.sidor.holidaygiftdraw.model.Gift;
 import pl.sidor.holidaygiftdraw.repository.AccountRepository;
 import pl.sidor.holidaygiftdraw.repository.GiftRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +30,10 @@ public class GiftService {
     }
 
     public void editGift(Gift gift) {
+        //to do
+    }
 
+    public List<Gift> getAllUnderMaxPrice(Account account, int giftMaxPrice) {
+        return giftRepository.findAllByAccountAndPriceLessThanEqual(account, giftMaxPrice);
     }
 }

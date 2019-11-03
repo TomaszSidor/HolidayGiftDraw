@@ -7,7 +7,9 @@ import pl.sidor.holidaygiftdraw.model.Gift;
 import java.util.List;
 import java.util.Optional;
 
-public interface GiftRepository extends JpaRepository <Gift, Long> {
-    List<Gift> findByAccount (Account account);
+public interface GiftRepository extends JpaRepository<Gift, Long> {
+    List<Gift> findByAccount(Account account);
+
+    List<Gift> findAllByAccountAndPriceLessThanEqual(Account account, int price);
 
 }
