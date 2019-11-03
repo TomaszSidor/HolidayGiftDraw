@@ -6,9 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.AccountRole;
+import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import pl.sidor.holidaygiftdraw.model.dto.UserRegistrationRequest;
 import pl.sidor.holidaygiftdraw.repository.AccountRepository;
 import pl.sidor.holidaygiftdraw.repository.AccountRoleRepository;
+import pl.sidor.holidaygiftdraw.repository.HolidayEventRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -25,6 +27,8 @@ public class AccountService  {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private HolidayEventService holidayEventService;
+    @Autowired
+    private HolidayEventRepository holidayEventRepository;
 
     @Value("${default.user.roles:USER}")
     private String[] defaultUserRegisterRoles;
@@ -44,7 +48,7 @@ public class AccountService  {
         }
     }
 
-    public boolean register(UserRegistrationRequest request) {
+    public boolean register(UserRegistrationRequest request, String eventUUID) {
         if (accountRepository.existsByUsername(request.getUsername())) {
             return false;
         }
@@ -53,22 +57,21 @@ public class AccountService  {
         account.setPassword(passwordEncoder.encode(request.getPassword()));
         account.setRoles(findRolesByName(defaultUserRegisterRoles));
         accountRepository.save(account);
-        return true;
-    }
+        if(eventUUID!=null){
+            Optional<HolidayEvent> holidayEventOptional = holidayEventService.findByIdentifier(eventUUID);
+            if (holidayEventOptional.isPresent()) {
+                HolidayEvent holidayEvent = holidayEventOptional.get();
+                holidayEvent.getAccountSet().add(account);
+                holidayEventRepository.save(holidayEvent);
+            }
 
-    public boolean registerWithUUID(UserRegistrationRequest request, String UUID){
-        if (accountRepository.existsByUsername(request.getUsername())) {
-            return false;
+
         }
-        Account account = new Account();
-        account.setUsername(request.getUsername());
-        account.setPassword(passwordEncoder.encode(request.getPassword()));
-        account.setRoles(findRolesByName(defaultUserRegisterRoles));
-        account.getHolidayEventSet().add(holidayEventService.findByIdentifier(UUID).get());
-        accountRepository.save(account);
-        return true;
 
+
+        return true;
     }
+
 
     public Set<AccountRole> findRolesByName(String... roles) {
         Set<AccountRole> accountRoles = new HashSet<>();

@@ -36,13 +36,17 @@ public class IndexController {
     }
 
     @GetMapping("/register")
-    public String registrationForm() {
+    public String registrationForm(@RequestParam(name="eventUUID", required = false) String eventUUID, Model model) {
+        if(eventUUID != null){
+            model.addAttribute("eventUUID", eventUUID);
+        }
         return "registration-form";
     }
 
     @PostMapping("/register")
     public String register(Model model, @Valid UserRegistrationRequest request,
-                           BindingResult bindingResult) {
+                           BindingResult bindingResult, String eventUUID) {
+
         if (!request.arePasswordsEqual()) {
             model.addAttribute("errorMessage", "Passwords do not match");
             return "registration-form";
@@ -51,25 +55,12 @@ public class IndexController {
             model.addAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
             return "registration-form";
         }
-        if (!accountService.register(request)) {
+        if (!accountService.register(request, eventUUID)) {
             model.addAttribute("errorMessage", "This username is already taken.");
             return "registration-form";
         }
         return "redirect:/login";
     }
 
-    @GetMapping("/register/{UUID}")
-    public String registrationFormWithUUID() {
-        return "registration-form";
-    }
 
-    @PostMapping("/register/{UUID}")
-    public String registerWithUUID(@RequestParam String UUID, Model model, @Valid UserRegistrationRequest request,
-                                   BindingResult bindingResult){
-
-        register(model, request, bindingResult);
-
-
-        return "redirect:/login";
-    }
 }
