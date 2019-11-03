@@ -30,68 +30,61 @@
                 <div class="col-md-6">Start</div>
                 <div class="col-md-6" th:text="${holidayEvent.getEventDate()}"></div>
             </div>
-            <div class="row col-md-12">
-                <div th:switch="${holidayEvent.isDrawn()}">
-                    <p th:case="0">
-                    <div class="col-md-6">DrawTime</div>
-                    <div class="col-md-6" th:text="${holidayEvent.getDrawDate()}"></div>
-                    </p>
-                    <p th:case="1">
-                    <div class="col-md-6">You buying a gift to:</div>
-                    <div class="col-md-6" th:each="draw : ${allDraws}">
-                        <div th:if="${draw.getGiver().equals(viewer)}">
-                            <div class="col-md-6" th:text="${draw.getReceiver().getName()}"></div>
-                        </div>
-                    </div>
+            <div class="row col-md-12" th:if="${!holidayEvent.isDrawn()}">
+                <div class="col-md-6">DrawTime</div>
+                <div class="col-md-6" th:text="${holidayEvent.getDrawDate()}"></div>
+            </div>
+            <div class="row col-md-12" th:if="${holidayEvent.isDrawn()}">
+                <div class="col-md-6">You buying a gift to:</div>
+                <div class="col-md-6" th:each="draw : ${allDraws}" th:if="${draw.getGiver().getId()==viewer.getId()}" th:text="${draw.getReceiver().getUsername()}"></div>
+            </div>
 
 
-                    </p>
-
-                </div>
-                <div class="row col-md-12">
-                    <div class="col-md-6">MaxPrice</div>
-                    <div class="col-md-6" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
-                </div>
-                <div class="row col-md-12">
-                    <div class="col-md-6">GuestsList</div>
-                    <div class="col-md-6">
-                        <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
-                            <div class="col-md-6" th:text="${account.getUsername()}"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row col-md-12">
-                    <!--                <div th:if="(${holidayEvent.getCreator().getUsername()} equels ` "-->
-                    <div class="col-md-6">Invite guests:</div>
-                    <div class="col-md-6">
-                        <form th:action="@{/holidayevent/invitations}">
-                            <input th:type="hidden" th:value="${holidayEvent.getId()}" name="eventId">
-                            <select th:name="invited_account">
-                                <option th:each="account : ${allAccounts}"
-                                        th:text="${account.getUsername()}"
-                                        th:if="${!holidayEvent.getAccountSet().contains(account)}"
-                                        th:value="${account.getId()}">
-                                </option>
-                            </select>
-                            <input class="form-control" th:type="submit">
-                        </form>
-                    </div>
-                </div>
-                <div class="row col-md-12">
-                    <div class="col-md-6">Invite guests via email:</div>
-                    <div class="col-md-6">
-                        <form th:action="@{/holidayevent/emailInvitation}">
-                            <input th:type="hidden" th:value="${holidayEvent.getIdentifier()}" name="eventUUID">
-
-                            <input class="form-control" id="email" type="text" name="email">
-                            </select>
-                            <input class="form-control" th:type="submit">
-                        </form>
-                    </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-6">MaxPrice</div>
+            <div class="col-md-6" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-6">GuestsList</div>
+            <div class="col-md-6">
+                <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
+                    <div class="col-md-6" th:text="${account.getUsername()}"></div>
                 </div>
             </div>
         </div>
+        <div class="row col-md-12">
+
+            <div class="col-md-6">Invite guests:</div>
+            <div class="col-md-6">
+                <form th:action="@{/holidayevent/invitations}">
+                    <input th:type="hidden" th:value="${holidayEvent.getId()}" name="eventId">
+                    <select th:name="invited_account">
+                        <option th:each="account : ${allAccounts}"
+                                th:text="${account.getUsername()}"
+                                th:if="${!holidayEvent.getAccountSet().contains(account)}"
+                                th:value="${account.getId()}">
+                        </option>
+                    </select>
+                    <input class="form-control" th:type="submit">
+                </form>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-6">Invite guests via email:</div>
+            <div class="col-md-6">
+                <form th:action="@{/holidayevent/emailInvitation}">
+                    <input th:type="hidden" th:value="${holidayEvent.getIdentifier()}" name="eventUUID">
+
+                    <input class="form-control" id="email" type="text" name="email">
+                    </select>
+                    <input class="form-control" th:type="submit">
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+</div>
 </div>
 </div>
 <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>

@@ -58,11 +58,11 @@ public class HolidayEventController {
         Optional<HolidayEvent> holidayEventOptional = holidayEventService.findById(id);
         List<Account> allAccounts = accountService.getAll();
         Account viewer = accountService.getByUsername(principal.getName()).get();
-        List<GiftDraw> allDraws = giftDrawService.getAllByEvent(holidayEventOptional.get());
+//        List<GiftDraw> allDraws = giftDrawService.getAllByEvent(holidayEventOptional.get());
         model.addAttribute("allAccounts", allAccounts);
-        model.addAttribute("allDraws", allDraws);
         model.addAttribute("viewer", viewer);
         if(holidayEventOptional.isPresent()) {
+            model.addAttribute("allDraws", holidayEventOptional.get().getGiftDraws());
             Period period = Period.between(holidayEventOptional.get().getDrawDate(), LocalDate.now());
             model.addAttribute("time_to_draw_days", period.getDays());
             model.addAttribute("time_to_draw_months", period.getMonths());
