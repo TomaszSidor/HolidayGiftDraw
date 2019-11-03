@@ -26,7 +26,9 @@ public class GiftDrawService {
     public List<GiftDraw> getAll (){ return giftDrawRepository.findAll();}
 
     public List<GiftDraw> getAllByEvent (HolidayEvent holidayEvent) {
+
         return giftDrawRepository.findAllByHolidayEvent(holidayEvent);
+
     }
 
     public void newGiftDraw(HolidayEvent holidayEvent) {

@@ -23,11 +23,13 @@
                     <div class="col-md-2">MaxPrice</div>
                     <div class="col-md-2">Create By</div>
                 </div>
+
                 <div th:each="holidayEvent : ${holidayEvents}" class="row col-md-12 list-data-row" >
                     <a th:href="@{'/holidayevent/singleView/'+${holidayEvent.getId()}}" class="row col-md-12" >
 
-                        <div class="col-md-2" th:text="${holidayEvent.getName()}"></div>
-                        <div class="col-md-2" th:text="${holidayEvent.getDateAdded()}"></div>
+
+                        <div  th:text="${holidayEvent.getName()}"></div>
+                        <div  th:text="${holidayEvent.getDateAdded()}"></div>
                         <div class="col-md-2" th:text="${holidayEvent.getEventDate()}"></div>
                         <div class="col-md-2" th:text="${holidayEvent.getDrawDate()}"></div>
                         <div class="col-md-2" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
