@@ -7,5 +7,5 @@ import pl.sidor.holidaygiftdraw.model.HolidayEvent;
 import java.util.List;
 
 public interface GiftDrawRepository extends JpaRepository <GiftDraw, Long> {
-    List<GiftDraw> allDrawsByHolidayEvent (HolidayEvent holidayEvent);
+    List<GiftDraw> findAllByHolidayEvent (HolidayEvent holidayEvent);
 }
