@@ -11,6 +11,7 @@
     <groupId>pl.sidor</groupId>
     <artifactId>holidaygiftdraw</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>holidaygiftdraw</name>
     <description>SDA Course graduated project</description>
 
@@ -19,6 +20,21 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>1.14.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+<!--            <scope>provided</scope>-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
@@ -71,22 +87,6 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.3.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>4.3.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.webjars.bower/popper.js -->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>popper.js</artifactId>
-            <version>1.15.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
