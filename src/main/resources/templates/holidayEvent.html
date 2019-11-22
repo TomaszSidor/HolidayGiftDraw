@@ -14,36 +14,36 @@
             <div class="row col-12">
                 <h1>Event View</h1>
             </div>
-            <div class="row col-md-12">
+            <div class="row col-md-12 list-group-item">
                 <div class="col-md-6">Name</div>
                 <div class="col-md-6" th:text="${holidayEvent.getName()}"></div>
             </div>
-            <div class="row col-md-12">
+            <div class="row col-md-12 list-group-item">
                 <div class="col-md-6">Created by:</div>
                 <div class="col-md-6" th:text="${holidayEvent.getCreator().getUsername()}"></div>
             </div>
-            <div class="row col-md-12">
+            <div class="row col-md-12 list-group-item">
                 <div class="col-md-6">Created</div>
                 <div class="col-md-6" th:text="${holidayEvent.getDateAdded()}"></div>
             </div>
-            <div class="row col-md-12">
+            <div class="row col-md-12 list-group-item">
                 <div class="col-md-6">Start</div>
                 <div class="col-md-6" th:text="${holidayEvent.getEventDate()}"></div>
             </div>
-            <div class="row col-md-12" th:if="${!holidayEvent.isDrawn()}">
+            <div class="row col-md-12 list-group-item" th:if="${!holidayEvent.isDrawn()}">
                 <div class="col-md-6">DrawTime</div>
                 <div class="col-md-6" th:text="${holidayEvent.getDrawDate()}"></div>
             </div>
-            <div class="row col-md-12" th:if="${holidayEvent.isDrawn()}">
+            <div class="row col-md-12 list-group-item" th:if="${holidayEvent.isDrawn()}">
                 <div class="col-md-6">You buying a gift to:</div>
                 <div class="col-md-6" th:each="draw : ${allDraws}" th:if="${draw.getGiver().getId()==viewer.getId()}"
                      th:text="${draw.getReceiver().getUsername()}"></div>
             </div>
-            <div class="row col-md-12">
+            <div class="row col-md-12 list-group-item">
                 <div class="col-md-6">MaxPrice</div>
                 <div class="col-md-6" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
             </div>
-            <div class="row col-md-12">
+            <div class="row col-md-12 list-group-item">
                 <div class="col-md-6">GuestsList</div>
                 <div class="col-md-6">
                     <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row col-md-12" th:if="${holidayEvent.getCreator().getId()==viewer.getId()}">
+            <div class="row col-md-12 list-group-item" th:if="${holidayEvent.getCreator().getUsername()==viewer.getId()}">
                 <div class="col-md-6">Invite guests:</div>
                 <form th:action="@{/holidayevent/invitations}">
                     <input th:type="hidden" th:value="${holidayEvent.getId()}" name="eventId">
@@ -67,7 +67,7 @@
                     <input class="form-control" th:type="submit">
                 </form>
             </div>
-            <div class="row col-md-12" th:if="${holidayEvent.getCreator().getId()==viewer.getId()}">
+            <div class="row col-md-12 list-group-item" th:if="${holidayEvent.getCreator().getId()==viewer.getId()}">
                 <div class="col-md-6">Invite guests via email:</div>
                 <form th:action="@{/holidayevent/emailInvitation}">
                     <input th:type="hidden" th:value="${holidayEvent.getIdentifier()}" name="eventUUID">

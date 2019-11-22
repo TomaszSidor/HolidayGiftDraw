@@ -12,10 +12,10 @@
     <div class="container">
         <div class="row col-12">
             <div class="row col-12">
-                <h1>Wishlist</h1>2
+                <h1>Wishlist</h1>
             </div>
             <div class="row col-md-12">
-                <div class="row col-md-12 list-header-row">
+                <div class="row col-md-12 list-header-row list-group-item-primary ">
                     <div class="col-md-3">Name</div>
                     <div class="col-md-3">Created</div>
                     <div class="col-md-3">URL link</div>
@@ -23,27 +23,34 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-1"></div>
                 </div>
-                <div th:each="gift : ${gifts}" class="row col-md-12 list-data-row">
-                    <div class="col-md-3" th:text="${gift.getName()}"></div>
-                    <div class="col-md-3" th:text="${gift.getDateAdded()}"></div>
-                    <div class="col-md-3" th:text="${gift.getURL()}"></div>
-                    <div class="col-md-1" th:text="${gift.getPrice()}"></div>
-                    <div class="col-md-1">
-                        <a th:href="@{/gift/edit}">
-                            <button type="button" class="btn btn-warning">Edit
-                            </button>
-                        </a>
-                    </div>
-                    <div class="col-md-1">
-                        <a th:href="@{/gift/delete}">
-                            <button type="button" class="btn btn-danger">Delete
-                            </button>
-                        </a>
+                <div th:each="gift : ${gifts}"
+                     class="row col-md-12 list-data-row list-group-item list-group-item-action">
+                    <div class="row col-md-12">
+                        <div class="col-md-3" th:text="${gift.getName()}"></div>
+                        <div class="col-md-3" th:text="${gift.getDateAdded()}"></div>
+                        <div class="col-md-3">
+                            <a th:href="${gift.getURL()}" th:target="_blank">
+                                <div th:text="${#strings.abbreviate(gift.getURL(),30)}"></div>
+                            </a>
+                        </div>
+                        <div class="col-md-1" th:text="${gift.getPrice()}"></div>
+                        <div class="col-md-1" th:if="${gift.getAccount().getId()==viewer}">
+                            <a th:href="@{/gift/edit}">
+                                <button type="button" class="btn btn-warning">Edit
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-md-1" th:if="${gift.getAccount().getId()==viewer}">
+                            <a th:href="@{/gift/delete}">
+                                <button type="button" class="btn btn-danger">Delete
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row col-md-12">
-                <div class="row col-md-12 list-header-row">
+                <div class="row col-md-12 list-header-row" th:if="${owner==viewer}">
                     <div class="col-md-12" align="center">
                         <a th:href="@{/gift/add}">
                             <button type="button" class="btn btn-primary">Add gift
