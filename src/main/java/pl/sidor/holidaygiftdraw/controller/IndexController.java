@@ -1,31 +1,40 @@
 package pl.sidor.holidaygiftdraw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.sidor.holidaygiftdraw.model.dto.UserRegistrationRequest;
 import pl.sidor.holidaygiftdraw.service.AccountService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping(path = "/")
 public class IndexController {
 
-    @Autowired
-    private String myName;
+//    @Autowired
+//    private String myName;
+
+    @ModelAttribute("currentUsername")
+    public String currentUsername(@AuthenticationPrincipal Principal principal, Model model) {
+        if (principal != null){
+            model.addAttribute("currentUsername", principal.getName() );
+            return  principal.getName();
+        }
+        return "no name";
+
+    }
 
     @Autowired
     private AccountService accountService;
 
     @GetMapping("/")
     public String getIndexPage(Model model) {
-        model.addAttribute("myName", myName);
+//        model.addAttribute("myName", myName);
 
         return "index";
     }

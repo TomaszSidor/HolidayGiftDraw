@@ -1,12 +1,10 @@
 package pl.sidor.holidaygiftdraw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sidor.holidaygiftdraw.model.Account;
 import pl.sidor.holidaygiftdraw.model.GiftDraw;
 import pl.sidor.holidaygiftdraw.model.HolidayEvent;
@@ -15,6 +13,7 @@ import pl.sidor.holidaygiftdraw.service.GiftDrawService;
 import pl.sidor.holidaygiftdraw.service.HolidayEventService;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Period;
@@ -23,6 +22,15 @@ import java.util.*;
 @Controller
 @RequestMapping(path = "/holidayevent/")
 public class HolidayEventController {
+    @ModelAttribute("currentUsername")
+    public String currentUsername(@AuthenticationPrincipal Principal principal, Model model) {
+        if (principal != null){
+            model.addAttribute("currentUsername", principal.getName() );
+            return  principal.getName();
+        }
+        return "no name";
+    }
+
     @Autowired
     private HolidayEventService holidayEventService;
     @Autowired
@@ -80,15 +88,15 @@ public class HolidayEventController {
     }
 
     @GetMapping("/emailInvitation")
-    public String getInviteGuestByEmail (String eventUUID, String email) throws MessagingException {
-        holidayEventService.sendEmailInvitation(email, eventUUID);
+    public String getInviteGuestByEmail (String eventUUID, String email, HttpServletRequest request) throws MessagingException {
+        holidayEventService.sendEmailInvitation(email, eventUUID, request);
         Long id = holidayEventService.findByIdentifier(eventUUID).get().getId();
         return  "redirect:/holidayevent/singleView/" + id;
 }
     @PostMapping("/emailInvitation")
-    public String inviteGuestByEmail (String eventUUID, String email) throws MessagingException {
+    public String inviteGuestByEmail (String eventUUID, String email, HttpServletRequest request) throws MessagingException {
 
-        holidayEventService.sendEmailInvitation(email, eventUUID);
+        holidayEventService.sendEmailInvitation(email, eventUUID, request);
         Long id = holidayEventService.findByIdentifier(eventUUID).get().getId();
         return  "redirect:/holidayevent/singleView/" + id;
     }

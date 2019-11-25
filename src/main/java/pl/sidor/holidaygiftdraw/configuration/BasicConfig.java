@@ -7,17 +7,21 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.security.Principal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Configuration
 public class BasicConfig {
 
-    @Bean(name = "myName")
-    public String myNameBean() {
-        String randomString = UUID.randomUUID().toString();
 
-        return "Pawel - " + randomString.substring(0, 5);
-    }
+//    @Bean(name = "myName")
+//    public String myNameBean() {
+//        if (principal != null){
+//            return principal.getName();
+//        }
+//        return "NO Username";
+//    }
 
     @Bean
     public TaskExecutor threadPoolTaskExecutor() {

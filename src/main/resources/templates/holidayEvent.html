@@ -6,7 +6,7 @@
     <title>Your Events</title>
 </head>
 <body>
-<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: navigator" th:remove="tag" ></th:block>
 
 <div class="content-container">
     <div class="container">
@@ -15,71 +15,93 @@
                 <h1>Event View</h1>
             </div>
             <div class="row col-md-12 list-group-item">
-                <div class="col-md-6">Name</div>
-                <div class="col-md-6" th:text="${holidayEvent.getName()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">Name</div>
+                    <div class="col-md-6" th:text="${holidayEvent.getName()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item">
-                <div class="col-md-6">Created by:</div>
-                <div class="col-md-6" th:text="${holidayEvent.getCreator().getUsername()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">Created by:</div>
+                    <div class="col-md-6" th:text="${holidayEvent.getCreator().getUsername()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item">
-                <div class="col-md-6">Created</div>
-                <div class="col-md-6" th:text="${holidayEvent.getDateAdded()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">Created</div>
+                    <div class="col-md-6" th:text="${holidayEvent.getDateAdded()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item">
-                <div class="col-md-6">Start</div>
-                <div class="col-md-6" th:text="${holidayEvent.getEventDate()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">Start</div>
+                    <div class="col-md-6" th:text="${holidayEvent.getEventDate()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item" th:if="${!holidayEvent.isDrawn()}">
-                <div class="col-md-6">DrawTime</div>
-                <div class="col-md-6" th:text="${holidayEvent.getDrawDate()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">DrawTime</div>
+                    <div class="col-md-6" th:text="${holidayEvent.getDrawDate()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item" th:if="${holidayEvent.isDrawn()}">
-                <div class="col-md-6">You buying a gift to:</div>
-                <div class="col-md-6" th:each="draw : ${allDraws}" th:if="${draw.getGiver().getId()==viewer.getId()}"
-                     th:text="${draw.getReceiver().getUsername()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">You buying a gift to:</div>
+                    <div class="col-md-6" th:each="draw : ${allDraws}"
+                         th:if="${draw.getGiver().getId()==viewer.getId()}"
+                         th:text="${draw.getReceiver().getUsername()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item">
-                <div class="col-md-6">MaxPrice</div>
-                <div class="col-md-6" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">MaxPrice</div>
+                    <div class="col-md-6" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item">
-                <div class="col-md-6">GuestsList</div>
-                <div class="col-md-6">
-                    <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
-                        <a th:href="@{'/gift/price/'+${holidayEvent.getId()} + '/' + ${account.getId()}}" > <!--// jak podać dwie zmienne?-->
-                        <div class="col-md-6" th:text="${account.getUsername()}"></div>
-                        </a>
+                <div class="row col-md-12">
+                    <div class="col-md-6">GuestsList</div>
+                    <div class="col-md-6">
+                        <div class="col-md-6" th:each="account : ${holidayEvent.getAccountSet()}">
+                            <a th:href="@{'/gift/price/'+${holidayEvent.getId()} + '/' + ${account.getId()}}">
+                                <!--// jak podać dwie zmienne?-->
+                                <div class="col-md-6" th:text="${account.getUsername()}"></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row col-md-12 list-group-item" th:if="${holidayEvent.getCreator().getUsername()==viewer.getId()}">
-                <div class="col-md-6">Invite guests:</div>
-                <form th:action="@{/holidayevent/invitations}">
-                    <input th:type="hidden" th:value="${holidayEvent.getId()}" name="eventId">
-                    <select th:name="invited_account">
-                        <option th:each="account : ${allAccounts}"
-                                th:text="${account.getUsername()}"
-                                th:if="${!holidayEvent.getAccountSet().contains(account)}"
-                                th:value="${account.getId()}">
-                        </option>
-                    </select>
-                    <input class="form-control" th:type="submit">
-                </form>
+            <div class="row col-md-12 list-group-item" th:if="${holidayEvent.getCreator().getId()==viewer.getId()}">
+                <div class="row col-md-12">
+                    <div class="col-md-6">Invite guests:</div>
+                    <form th:action="@{/holidayevent/invitations}">
+                        <input th:type="hidden" th:value="${holidayEvent.getId()}" name="eventId">
+                        <select th:name="invited_account">
+                            <option th:each="account : ${allAccounts}"
+                                    th:text="${account.getUsername()}"
+                                    th:if="${!holidayEvent.getAccountSet().contains(account)}"
+                                    th:value="${account.getId()}">
+                            </option>
+                        </select>
+                        <input class="form-control" th:type="submit">
+                    </form>
+                </div>
             </div>
             <div class="row col-md-12 list-group-item" th:if="${holidayEvent.getCreator().getId()==viewer.getId()}">
-                <div class="col-md-6">Invite guests via email:</div>
-                <form th:action="@{/holidayevent/emailInvitation}">
-                    <input th:type="hidden" th:value="${holidayEvent.getIdentifier()}" name="eventUUID">
-                    <input class="form-control" id="email" type="text" name="email">
-                    </select>
-                    <input class="form-control" th:type="submit">
-                </form>
+                <div class="row col-md-12">
+                    <div class="col-md-6">Invite guests via email:</div>
+                    <form th:action="@{/holidayevent/emailInvitation}">
+                        <input th:type="hidden" th:value="${holidayEvent.getIdentifier()}" name="eventUUID">
+                        <input class="form-control" id="email" type="text" name="email">
+                        </select>
+                        <input class="form-control" th:type="submit">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-    <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
-    <th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: jsScripts" th:remove="tag"></th:block>
 </body>
 </html>

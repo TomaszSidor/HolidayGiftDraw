@@ -6,9 +6,10 @@
     <title>HolidayGiftDraw</title>
 </head>
 <body>
-<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: navigator" th:remove="tag" ></th:block>
 <div class="content-container">
-    <h1>Welcome to Holiday Gift Draw!</h1>
+    <h1>Welcome to Holiday Gift Draw <span th:text="${currentUsername}"></span>
+    !</h1>
 </div>
 
 <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>

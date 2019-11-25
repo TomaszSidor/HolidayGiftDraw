@@ -8,6 +8,7 @@ import pl.sidor.holidaygiftdraw.repository.AccountRepository;
 import pl.sidor.holidaygiftdraw.repository.HolidayEventRepository;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -47,11 +48,14 @@ public class HolidayEventService {
         holidayEventRepository.save(holidayEvent);
     }
 
-    public void sendEmailInvitation(String email, String eventUUID) throws MessagingException {
+    public void sendEmailInvitation(String email, String eventUUID, HttpServletRequest request) throws MessagingException {
         HolidayEvent holidayEvent = holidayEventRepository.findByIdentifier(eventUUID).get();
-        String URL = "http://localhost:8080/register?eventUUID=" + eventUUID;
-        mailingService.sendEmail(email, "Hello this is a invitation link: " + URL + " to application " +
-                "HolidayGiftDraw. Click to register ", "Invitation to HolidayGiftDraw");
+
+        String URL = request.getScheme() + "://" + request.getServerName() + "/register?eventUUID=" + eventUUID;
+        mailingService.sendEmail(email, "Hello! Welcome to HolidayGiftDraw Application. User " + holidayEvent.getCreator().getUsername() + "is inviting you to event :" + holidayEvent.getName() +  "" +
+                        " . If you want to join this event please click that link: " + URL + " and fill out registration form. If you dont know HolidayGiftDraw or "
+                        + holidayEvent.getCreator().getUsername() + " please ignore this email. Any questions can be send to info@holidaygiftdraw.pl . Have a nice Holidays!!! ", "Invitation to HolidayGiftDraw");
 
     }
+
 }

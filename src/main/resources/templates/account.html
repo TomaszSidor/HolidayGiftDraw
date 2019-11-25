@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+<th:block th:replace="fragments :: navigator" th:remove="tag" ></th:block>
 
 <div class="content-container">
     <div class="container">
@@ -14,62 +14,73 @@
             <div class="row col-12">
                 <h1>My account</h1>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">Id</div>
-                <div class="col-md-6" th:text="${account.getId()}"></div>
+            <div class="row col-md-12 list-group-item">
+                <div class="row col-md-12">
+                    <div class="col-md-6">Username</div>
+                    <div class="col-md-6" th:text="${account.getUsername()}"></div>
+                </div>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">Username</div>
-                <div class="col-md-6" th:text="${account.getUsername()}"></div>
+            <div class="row col-md-12 list-group-item">
+                <div class="row col-md-12">
+                    <div class="col-md-6">Name</div>
+                    <div class="col-md-6" th:text="${account.getName()}"></div>
+                </div>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">Name</div>
-                <div class="col-md-6" th:text="${account.getName()}"></div>
+            <div class="row col-md-12 list-group-item">
+                <div class="row col-md-12">
+                    <div class="col-md-6">Surname</div>
+                    <div class="col-md-6" th:text="${account.getSurname()}"></div>
+                </div>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">Surname</div>
-                <div class="col-md-6" th:text="${account.getSurname()}"></div>
+            <div class="row col-md-12 list-group-item">
+                <div class="row col-md-12">
+                    <div class="col-md-6">BirthDay</div>
+                    <div class="col-md-6" th:text="${account.getBirthday()}"></div>
+                </div>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">BirthDay</div>
-                <div class="col-md-6" th:text="${account.getBirthday()}"></div>
+            <div class="row col-md-12 list-group-item">
+                <div class="row col-md-12">
+                    <div class="col-md-6">email</div>
+                    <div class="col-md-6" th:text="${account.getEmail()}"></div>
+                </div>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">email</div>
-                <div class="col-md-6" th:text="${account.getEmail()}"></div>
-            </div>
-            <div class="row col-md-12">
-                <div class="col-md-6">Events</div>
-                <div class="col-md-6">
-                    <div th:each="events : ${account.getHolidayEventSet()}">
-                        <a th:href="@{'/holidayevent/singleView/'+${events.getId()}}">
-                        <div th:text="${events.getName()}"></div>
-                        </a>
+            <div class="row col-md-12 list-group-item">
+                <div class="row col-md-12">
+                    <div class="col-md-6">Events</div>
+                    <div class="col-md-6">
+                        <div th:each="events : ${account.getHolidayEventSet()}">
+                            <a th:href="@{'/holidayevent/singleView/'+${events.getId()}}">
+                                <div th:text="${events.getName()}"></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row col-md-12 list-data-row">
-            <div class="row col-12">
-                <div class="col-md-3">
-                    <a th:href="@{/admin/account/remove(accountId=${account.getId()})}">
-                        <button th:disabled="${account.isAdmin()}" type="button" class="btn btn-danger">Remove
-                        </button>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a th:href="@{/admin/account/resetPassword(accountId=${account.getId()})}">
-                        <button type="button" class="btn btn-primary">
-                            Reset Password
-                        </button>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a th:href="@{/admin/account/editRoles(accountId=${account.getId()})}">
-                        <button type="button" class="btn btn-primary">
-                            Edit roles
-                        </button>
-                    </a>
+
+            <div class="row col-md-12 list-group-item">
+
+                <div class="row col-12">
+                    <div class="col-md-4">
+                        <a th:href="@{/admin/account/remove(accountId=${account.getId()})}">
+                            <button th:disabled="${account.isAdmin()}" type="button" class="btn btn-danger">
+                                Remove
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a th:href="@{/admin/account/resetPassword(accountId=${account.getId()})}">
+                            <button type="button" class="btn btn-primary">
+                                Reset Password
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a th:href="@{/account/editAccount(accountId=${account.getId()})}">
+                            <button type="button" class="btn btn-primary">
+                                Edit profile
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

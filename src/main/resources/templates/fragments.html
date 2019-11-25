@@ -9,7 +9,7 @@
     </th:block>
 </head>
 <body>
-<th:block th:fragment="navigator">
+<th:block th:fragment="navigator" >
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" th:href="@{/}">Holiday Gift Draw</a>
@@ -39,6 +39,13 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/account}" >Logged as:
+                            <!--/*@thymesVar id="currentUsername" type="java.lang.String"*/-->
+                            <span th:text="${currentUsername}"></span>
+                            </a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
