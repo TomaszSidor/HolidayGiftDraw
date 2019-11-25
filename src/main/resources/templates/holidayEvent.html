@@ -29,7 +29,7 @@
             <div class="row col-md-12 list-group-item">
                 <div class="row col-md-12">
                     <div class="col-md-6">Created</div>
-                    <div class="col-md-6" th:text="${holidayEvent.getDateAdded()}"></div>
+                    <div class="col-md-6" th:text="${#temporals.format(holidayEvent.getDateAdded(), 'dd-MM-yyyy HH:mm')}"></div>
                 </div>
             </div>
             <div class="row col-md-12 list-group-item">

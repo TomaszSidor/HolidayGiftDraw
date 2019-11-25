@@ -27,7 +27,7 @@
                 <div th:each="holidayEvent : ${holidayEvents}" class="row col-md-12 list-data-row list-group-item list-group-item-action" >
                     <a th:href="@{'/holidayevent/singleView/'+${holidayEvent.getId()}} " class="row col-md-12" >
                         <div class="col-md-2" th:text="${holidayEvent.getName()}"></div>
-                        <div class="col-md-2" th:text="${holidayEvent.getDateAdded()}"></div>
+                        <div class="col-md-2" th:text="${#temporals.format(holidayEvent.getDateAdded(), 'dd-MM-yyyy HH:mm')}"></div>
                         <div class="col-md-2" th:text="${holidayEvent.getEventDate()}"></div>
                         <div class="col-md-2" th:text="${holidayEvent.getDrawDate()}"></div>
                         <div class="col-md-2" th:text="${holidayEvent.getGiftMaxPrice()}"></div>
